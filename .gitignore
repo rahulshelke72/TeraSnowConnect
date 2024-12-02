@@ -1,0 +1,27 @@
+# Ignore environment variable files
+.env
+requirements.txt
+
+
+# Ignore data folder
+Data
+.Data/
+
+# Ignore virtual environment folders
+venv/
+.venv/
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore IDE settings
+.vscode/
+.idea/
