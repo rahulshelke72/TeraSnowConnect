@@ -23,7 +23,7 @@ def create_snowflake_session():
 
 
 # Create and return a Snowflake connector connection for administrative queries
-def create_snowflake_connector_connection():
+def get_snowflake_connection():
     # Define Snowflake connection parameters from environment variables
     snowflake_conn_params = {
         "user": os.getenv("SNOWFLAKE_USER"),
@@ -38,22 +38,11 @@ def create_snowflake_connector_connection():
     connection = snowflake.connector.connect(**snowflake_conn_params)
     return connection
 
-# Initialize the Snowflake session for use in other files
-session = create_snowflake_session()
-
-# Optionally initialize the Snowflake connector connection for administrative tasks
-connector_connection = create_snowflake_connector_connection()
-
-
-# def show_tables():
-#     cursor = connector_connection.cursor()
-#     cursor.execute("SHOW DATABASES")
-#     databases = cursor.fetchall()
+# # Initialize the Snowflake session for use in other files
+# session = create_snowflake_session()
 #
-#     # Print the list of databases
-#     print("Databases in Snowflake:")
-#     for db in databases:
-#         print(db[1])  # The second column contains the database name
-#
-# show_tables()
+# # Optionally initialize the Snowflake connector connection for administrative tasks
+# connector_connection = get_snowflake_connection()
+
+
 
