@@ -41,8 +41,9 @@ def get_snowflake_connection():
 # # Initialize the Snowflake session for use in other files
 # session = create_snowflake_session()
 #
-# # Optionally initialize the Snowflake connector connection for administrative tasks
+# Optionally initialize the Snowflake connector connection for administrative tasks
 # connector_connection = get_snowflake_connection()
-
-
-
+# if(connector_connection):
+#     print("connected to snowflake account.")
+# else:
+#     print("error occured")
