@@ -1,13 +1,13 @@
 import snowflake.connector
-from config.snowflake import create_snowflake_connector_connection
+from config.snowflake import get_snowflake_connection
 from tabulate import tabulate
 
-def show_databases():
+def show_databases_snowflake():
     """
     Fetches and returns a list of all databases in Snowflake.
     """
     try:
-        with create_snowflake_connector_connection() as conn:
+        with get_snowflake_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SHOW DATABASES")
             databases = cursor.fetchall()
@@ -17,12 +17,12 @@ def show_databases():
         return []
 
 
-def show_tables(database_name):
+def show_tables_snowflake(database_name):
     """
     Fetches and returns a list of all tables in a specific Snowflake database.
     """
     try:
-        with create_snowflake_connector_connection() as conn:
+        with get_snowflake_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(f"SHOW TABLES IN DATABASE {database_name}")
             tables = cursor.fetchall()
@@ -32,12 +32,12 @@ def show_tables(database_name):
         return []
 
 
-def show_roles():
+def show_roles_snowflake():
     """
     Fetches and returns a list of roles in Snowflake.
     """
     try:
-        with create_snowflake_connector_connection() as conn:
+        with get_snowflake_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SHOW ROLES")
             roles = cursor.fetchall()
@@ -47,12 +47,12 @@ def show_roles():
         return []
 
 
-def show_users():
+def show_users_snowflake():
     """
     Fetches and returns a list of users in Snowflake.
     """
     try:
-        with create_snowflake_connector_connection() as conn:
+        with get_snowflake_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SHOW USERS")
             users = cursor.fetchall()
@@ -73,18 +73,19 @@ def print_results_in_table(title, data):
 # Example Usage
 if __name__ == "__main__":
     # Show and print databases
-    databases = show_databases()
+    databases = show_databases_snowflake()
     print_results_in_table("Databases", databases)
 
     # Replace with an actual database name to test show_tables
     database_name = "RAHUL"  # You can change this to any valid Snowflake database
-    tables = show_tables(database_name)
+    tables = show_tables_snowflake(database_name)
     print_results_in_table(f"Tables in {database_name}", tables)
 
     # Show and print roles
-    roles = show_roles()
+    roles = show_roles_snowflake()
     print_results_in_table("Roles", roles)
 
     # Show and print users
-    users = show_users()
+    users = show_users_snowflake()
     print_results_in_table("Users", users)
+

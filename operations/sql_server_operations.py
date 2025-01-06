@@ -4,7 +4,7 @@ from tabulate import tabulate
 
 conn = get_sql_server_connection()
 
-def show_roles():
+def show_roles_sql_server():
     """
     Connects to SQL Server and shows the list of roles in the current database excluding system roles.
     """
@@ -32,7 +32,7 @@ def show_roles():
         print("Error accessing SQL Server:", e)
 
 
-def show_users():
+def show_users_sql_server():
         """
         Connects to SQL Server and shows the list of roles in the current database excluding system roles.
         """
@@ -59,7 +59,7 @@ def show_users():
         except pyodbc.Error as e:
             print("Error accessing SQL Server:", e)
 
-def show_databases():
+def show_databases_sql_server():
     """
     Connects to SQL Server and shows the list of databases.
     """
@@ -78,7 +78,7 @@ def show_databases():
         print("Error accessing SQL Server:", e)
 
 
-def show_schemas(database_name):
+def show_schemas_sql_server(database_name):
     """
     Connects to SQL Server and shows the list of schemas in the specified database.
     """
@@ -98,7 +98,7 @@ def show_schemas(database_name):
         print(f"Error accessing database '{database_name}':", e)
 
 
-def show_tables(database_name):
+def show_tables_sql_server(database_name):
     """
     Connects to SQL Server and shows the list of tables in the specified database.
     """
@@ -122,7 +122,7 @@ def show_tables(database_name):
     except pyodbc.Error as e:
         print(f"Error accessing database '{database_name}':", e)
 
-def show_logins():
+def show_logins_sql_server():
     """
     Connects to SQL Server and shows the list of logins.
     """
@@ -154,7 +154,7 @@ def show_logins():
 # show_tables("migration_data")
 # show_logins()
 
-def show_privileges_for_roles(database_name):
+def show_privileges_for_roles_sql_server(database_name):
     """
     Connects to SQL Server and shows privileges for roles in the specified database.
     """
@@ -186,7 +186,7 @@ def show_privileges_for_roles(database_name):
     except pyodbc.Error as e:
         print(f"Error accessing database '{database_name}':", e)
 
-def show_masking_policies(database_name):
+def show_masking_policies_sql_server(database_name):
     """
     Connects to SQL Server and shows masking policies in the specified database.
     """
@@ -216,7 +216,7 @@ def show_masking_policies(database_name):
         print(f"Error accessing database '{database_name}':", e)
 
 
-def check_masking_policies_roles(database_name):
+def check_masking_policies_roles_sql_server(database_name):
     """
     Connects to SQL Server and checks which roles have permissions on columns with masking policies applied.
     """
@@ -258,4 +258,5 @@ def check_masking_policies_roles(database_name):
 
 # show_masking_policies("migration_data")
 # show_privileges_for_roles("migration_data")
-check_masking_policies_roles("migration_data")
+#check_masking_policies_roles_sql_server("migration_data")
+
