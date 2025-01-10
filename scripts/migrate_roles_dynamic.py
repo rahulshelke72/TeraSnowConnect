@@ -1,3 +1,5 @@
+import os
+import logging
 from operations.sql_server_operations import (
     show_roles_sql_server,
     show_users_sql_server,
@@ -9,9 +11,25 @@ from operations.snowflake_operations import (
 )
 from config.sql_server import get_sql_server_connection
 from config.snowflake import get_snowflake_connection
-import logging
 
-logging.basicConfig(level=logging.INFO)
+# Ensure the 'scripts/logs' folder exists
+log_folder = 'C:/Users/Lenovo/PycharmProjects/Teradata_Snowflake/scripts/logs'
+if not os.path.exists(log_folder):
+    os.makedirs(log_folder)
+
+# Define the log file path
+log_file_path = os.path.join(log_folder, 'migration_log.log')
+
+# Set up logging to file and console
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file_path),  # Log to file
+        logging.StreamHandler()  # Log to console
+    ]
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -103,7 +121,7 @@ def grant_snowflake_privileges(snow_conn, role_name, schema_name, object_name, p
         raise
 
 
-def migrate_roles(source_db_name, target_schema=None):
+def migrate_roles(source_db_name):
     """
     Main function to migrate roles from SQL Server to Snowflake
     """
@@ -137,13 +155,11 @@ def migrate_roles(source_db_name, target_schema=None):
                 state_desc
             )
 
-            if target_schema:
-                schema_name = target_schema
-
+            # Grant privileges to Snowflake
             grant_snowflake_privileges(
                 snow_conn,
                 role_name,
-                schema_name,
+                schema_name,  # Use schema_name from the query results
                 object_name,
                 snowflake_privilege
             )
@@ -161,10 +177,5 @@ def migrate_roles(source_db_name, target_schema=None):
 if __name__ == "__main__":
     # Example usage
     migrate_roles(
-        source_db_name="source_database",
-        target_schema="target_schema"  # Optional: specify if schema names differ
+        source_db_name="migration_data"  # No need for target_schema here
     )
-
-
-
-

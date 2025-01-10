@@ -80,36 +80,36 @@ def run_snowflake_queries(excel_file_path, sheet_name="Test"):
         snowflake_conn.close()
 
 
-def run_sql_server_queries(excel_file_path, sheet_name="Test"):
-    """
-    Reads and executes SQL Server queries from the specified sheet in the Excel file.
-    """
-    # Read the specified sheet from the Excel file
-    df = pd.read_excel(excel_file_path, sheet_name=sheet_name)
-
-    # Clean column names to avoid issues with spaces or hidden characters
-    df.columns = df.columns.str.strip()
-
-    # Validate the necessary column
-    if "SQL Server Query" not in df.columns:
-        raise ValueError(f"The sheet '{sheet_name}' must contain a 'SQL Server Query' column.")
-
-    # Connect to SQL Server
-    sql_server_conn = get_sql_server_connection()
-
-    try:
-        with sql_server_conn.cursor() as cursor:
-            for query in df["SQL Server Query"]:
-                if pd.notna(query):  # Skip empty queries
-                    try:
-                        logger.info(f"Executing SQL Server Query: {query}")
-                        cursor.execute(query)
-                        sql_server_conn.commit()
-                        log_query_status('SQL Server', query, 'success')
-                    except Exception as e:
-                        log_query_status('SQL Server', query, 'failure', str(e))
-    finally:
-        sql_server_conn.close()
+# def run_sql_server_queries(excel_file_path, sheet_name="Test"):
+#     """
+#     Reads and executes SQL Server queries from the specified sheet in the Excel file.
+#     """
+#     # Read the specified sheet from the Excel file
+#     df = pd.read_excel(excel_file_path, sheet_name=sheet_name)
+#
+#     # Clean column names to avoid issues with spaces or hidden characters
+#     df.columns = df.columns.str.strip()
+#
+#     # Validate the necessary column
+#     if "SQL Server Query" not in df.columns:
+#         raise ValueError(f"The sheet '{sheet_name}' must contain a 'SQL Server Query' column.")
+#
+#     # Connect to SQL Server
+#     sql_server_conn = get_sql_server_connection()
+#
+#     try:
+#         with sql_server_conn.cursor() as cursor:
+#             for query in df["SQL Server Query"]:
+#                 if pd.notna(query):  # Skip empty queries
+#                     try:
+#                         logger.info(f"Executing SQL Server Query: {query}")
+#                         cursor.execute(query)
+#                         sql_server_conn.commit()
+#                         log_query_status('SQL Server', query, 'success')
+#                     except Exception as e:
+#                         log_query_status('SQL Server', query, 'failure', str(e))
+#     finally:
+#         sql_server_conn.close()
 
 
 def display_snowflake_queries(excel_file_path, sheet_name="Test"):
@@ -132,25 +132,25 @@ def display_snowflake_queries(excel_file_path, sheet_name="Test"):
         if pd.notna(query):  # Skip empty queries
             print(f"Snowflake Query: {query}")
 
-def display_sql_server_queries(excel_file_path, sheet_name="Test"):
-    """
-    Reads and displays SQL Server queries from the specified sheet in the Excel file.
-    """
-    # Read the specified sheet from the Excel file
-    df = pd.read_excel(excel_file_path, sheet_name=sheet_name)
-
-    # Clean column names to avoid issues with spaces or hidden characters
-    df.columns = df.columns.str.strip()
-
-    # Validate the necessary column
-    if "SQL Server Query" not in df.columns:
-        raise ValueError(f"The sheet '{sheet_name}' must contain a 'SQL Server Query' column.")
-
-    # Display SQL Server queries
-    print("SQL Server Queries from the 'Test' sheet:")
-    for query in df["SQL Server Query"]:
-        if pd.notna(query):  # Skip empty queries
-            print(f"SQL Server Query: {query}")
+# def display_sql_server_queries(excel_file_path, sheet_name="Test"):
+#     """
+#     Reads and displays SQL Server queries from the specified sheet in the Excel file.
+#     """
+#     # Read the specified sheet from the Excel file
+#     df = pd.read_excel(excel_file_path, sheet_name=sheet_name)
+#
+#     # Clean column names to avoid issues with spaces or hidden characters
+#     df.columns = df.columns.str.strip()
+#
+#     # Validate the necessary column
+#     if "SQL Server Query" not in df.columns:
+#         raise ValueError(f"The sheet '{sheet_name}' must contain a 'SQL Server Query' column.")
+#
+#     # Display SQL Server queries
+#     print("SQL Server Queries from the 'Test' sheet:")
+#     for query in df["SQL Server Query"]:
+#         if pd.notna(query):  # Skip empty queries
+#             print(f"SQL Server Query: {query}")
 
 
 if __name__ == "__main__":
@@ -161,9 +161,9 @@ if __name__ == "__main__":
         logger.info("Snowflake queries execution completed.")
 
         # Run SQL Server queries
-        logger.info("\nStarting SQL Server queries execution...")
-        run_sql_server_queries(EXCEL_FILE_PATH, sheet_name="Test")
-        logger.info("SQL Server queries execution completed.")
+        # logger.info("\nStarting SQL Server queries execution...")
+        # run_sql_server_queries(EXCEL_FILE_PATH, sheet_name="Test")
+        # logger.info("SQL Server queries execution completed.")
 
     except Exception as e:
         logger.error(f"An error occurred: {e}")

@@ -1,8 +1,8 @@
 from operations.teradata_operations import show_databases as td_show_databases, \
     show_tables as td_show_tables, show_roles as td_show_roles, show_users as td_show_users
 
-from operations.snowflake_operations import show_databases as sf_show_databases, \
-    show_tables as sf_show_tables, show_roles as sf_show_roles, show_users as sf_show_users
+from operations.snowflake_operations import show_databases_snowflake as sf_show_databases, \
+    show_tables_snowflake as sf_show_tables, show_roles_snowflake as sf_show_roles, show_users_snowflake as sf_show_users
 
 
 def test_teradata_operations():
